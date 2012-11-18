@@ -9,13 +9,26 @@ module Voter
 
     it 'has name and vote_count attributes' do
       @option.should respond_to :name
-      @option.should respond_to :vote_count
     end
 
     it 'can be saved' do
       @option.name = 'option name'
-      @option.vote_count = 99
       @option.save!.should be_true
+    end
+
+    it 'can have many votes associated with it' do
+      @option.name = 'option with votes'
+
+      5.times do |i|
+        # create new option
+        v = Vote.new
+
+        # add to topic options
+        @option.votes << v
+      end
+
+      @option.save!.should be_true
+      @option.votes.length.should == 5
     end
   end
 end

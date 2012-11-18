@@ -22,12 +22,10 @@ module Voter
     end
 
     it 'has embedded options which can be saved too' do
-      options = []
       5.times do |i|
         # create new option
         o = Option.new
         o.name = 'option name ' + i.to_s
-        o.vote_count = rand(1..100)
 
         # add to topic options
         @topic.options << o
