@@ -4,7 +4,7 @@ module Voter
   describe Option do
     before(:each) do
       @option = Option.new
-      @option.stub(:save).and_return(true)
+      @option.stub(:save!).and_return true
     end
 
     it 'has name and vote_count attributes' do
@@ -13,6 +13,8 @@ module Voter
     end
 
     it 'can be saved' do
+      @option.name = 'option name'
+      @option.vote_count = 99
       @option.save!.should be_true
     end
   end
