@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'topic'
 
 module Voter
@@ -7,8 +8,14 @@ module Voter
     end
 
     it 'has id and key attributes' do
-      @topic.should respond_to :id
+      @topic.should respond_to :name
       @topic.should respond_to :key
+    end
+
+    it 'can be saved' do
+      @topic.name = 'test'
+      @topic.key = 'xyz'
+      @topic.save!
     end
   end
 end
