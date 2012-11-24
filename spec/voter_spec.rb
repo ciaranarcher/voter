@@ -35,7 +35,11 @@ module Voter
         Voter::voting_allowed?(@topic, @key).should be_true
       end
 
-      it 'allows a vote to be made on a topic' do
+      it 'raises an exception if a vote is attempted on a non-existent option' do
+        lambda {Voter::vote!(@topic, 'foo')}.should raise_error
+      end
+
+      pending 'allows a vote to be made on a topic' do
         Voter::vote!(@topic, 'red').should be_true
       end
 
