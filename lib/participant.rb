@@ -1,13 +1,11 @@
 require 'mongoid'
 
 module Voter
-  class Topic
+  class Participant
     include Mongoid::Document
-    embeds_many :options
-    has_and_belongs_to_many :participants, inverse_of: nil
 
     field :name, type: String
-    field :key, type: String
+    field :email, type: String
     field :created_at, type: Time, default: ->{ Time.now }
   end
 end
