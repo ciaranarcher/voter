@@ -1,4 +1,6 @@
 require 'mongoid'
+require 'option'
+require 'participant'
 
 module Voter
   class Topic

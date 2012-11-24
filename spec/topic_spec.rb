@@ -18,7 +18,6 @@ module Voter
     it 'can be saved' do
       @topic.name = 'test'
       @topic.key = 'xyz'
-      @topic.options
       @topic.save!
     end
 
