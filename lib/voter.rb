@@ -6,7 +6,15 @@ module Voter
     end
 
     def self.vote!(topic, option)
-      raise VotingOptionNotFound if topic.options.select {|o| o.name == option}.empty?
+      option = topic.options.select {|o| o.name == option}.first
+      # check for option existing
+      raise VotingOptionNotFound if option.nil?
+
+      # looks good, so add the vote to the option
+      option.votes << Vote.new
+      option.save! 
+
+      true
     end
   end
 end

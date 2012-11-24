@@ -39,8 +39,12 @@ module Voter
         lambda {Voter::vote!(@topic, 'foo')}.should raise_error
       end
 
-      pending 'allows a vote to be made on a topic' do
-        Voter::vote!(@topic, 'red').should be_true
+      it 'allows a vote to be made on a option' do
+        selected_option = 'red'
+        option = @topic.options.select {|o| o.name == selected_option}
+        vote_count = option.first.votes.count
+        Voter::vote!(@topic, selected_option).should be_true
+        vote_count.should == option.first.votes.count
       end
 
       pending 'only allows a participant to vote once on a topic' do
