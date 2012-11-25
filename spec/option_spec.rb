@@ -4,7 +4,7 @@ module Voter
   describe Option do
     before(:each) do
       @option = Option.new
-      stub_save!(@option)
+      stub_save! @option
     end
 
     it 'has name and vote_count attributes' do
