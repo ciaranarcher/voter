@@ -19,10 +19,16 @@ module Voter
 
       # looks good, so add the vote to the option
       vote = Vote.new(participant_email: participant.email)
-      option.votes << vote
+      option.votes << vote 
       option.save! 
 
       true
+    end
+
+    def self.report_ranked_desc(topic)
+      topic.options.sort do |a, b| 
+        b.votes.length <=> a.votes.length 
+      end
     end
   end
 end
