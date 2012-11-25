@@ -5,7 +5,7 @@ module Voter
   describe Participant do
    before(:each) do
       @person = Participant.new
-      @person.stub(:save!).and_return true
+      stub_save! @person
     end
 
     it 'has id and created_at attributes' do

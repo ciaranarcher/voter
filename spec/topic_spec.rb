@@ -3,11 +3,11 @@ require 'topic'
 require 'option'
 require 'participant'
 
-module Voter
+module Voter 
   describe Topic do
     before(:each) do
       @topic = Topic.new
-      @topic.stub(:save!).and_return true
+      stub_save! @topic
     end
 
     it 'has id and key attributes' do
@@ -25,7 +25,7 @@ module Voter
       5.times do |i|
         # create new option
         o = Option.new
-        o.stub(:save!).and_return true
+        stub_save! o
         o.name = 'option name ' + i.to_s
 
         # add to topic options

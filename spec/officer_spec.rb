@@ -12,17 +12,17 @@ module Voter
       # setup a topic with a specific key
       @key = Digest::SHA1.hexdigest('foo' + Time.now.to_s)
       @topic = Topic.new
-      @topic.stub(:save!).and_return true
+      stub_save! @topic
       @topic.name = 'test'
       @topic.key = @key
 
       o1 = Option.new
-      o1.stub(:save!).and_return true
+      stub_save! o1
       o1.name = 'red'
       o1.save!
 
       o2 = Option.new
-      o2.stub(:save!).and_return true
+      stub_save! o2
       o2.name = 'blue'
       o2.save!
 
@@ -32,15 +32,15 @@ module Voter
 
       # create a participants
       @person_a = Participant.new(name: 'Person A', email: 'person_a@bar.com')
-      @person_a.stub(:save!).and_return true
+      stub_save! @person_a
       @person_a.save!
 
       @person_b = Participant.new(name: 'Person B', email: 'person_b@bar.com')
-      @person_b.stub(:save!).and_return true
+      stub_save! @person_b
       @person_b.save!
 
       @person_c = Participant.new(name: 'Person C', email: 'person_c@bar.com')
-      @person_c.stub(:save!).and_return true
+      stub_save! @person_c
       @person_c.save!
     end
 
