@@ -7,8 +7,6 @@ require 'digest/sha1'
 module Voter
   describe Officer do
     before(:each) do
-      #TODO: any way to avoid stubbing every instance?
-
       # setup a topic with a specific key
       @key = Digest::SHA1.hexdigest('foo' + Time.now.to_s)
       @topic = Topic.new
