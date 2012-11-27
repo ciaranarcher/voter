@@ -6,3 +6,4 @@ end
 
 gem 'mongoid'
 gem 'sinatra'
+gem 'sinatra-contrib'
