@@ -24,8 +24,8 @@ module Voter
     end
 
     post '/topic' do
-      key = Digest::SHA1.hexdigest(@params[:name] + Time.now.to_s + settings.salt)
-      topic = Topic.new(name: @params[:name], key: key)
+      @key = Digest::SHA1.hexdigest(@params[:name] + Time.now.to_s + settings.salt)
+      topic = Topic.new(name: @params[:name], key: @key)
       option_params = @params.select {|k, v| k.start_with? 'option'}
 
       option_params.values.each do |option_value|
@@ -34,7 +34,7 @@ module Voter
       end
 
       topic.save!
-      'ok'
+      erb :topic_created
     end
   end
 end
