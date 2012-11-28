@@ -8,5 +8,15 @@ module Voter
     get '/' do
       erb :home
     end
+
+    # topic
+    get '/topic' do
+      erb :add_topic
+    end
+
+    post '/topic' do
+
+      
+    end
   end
 end
