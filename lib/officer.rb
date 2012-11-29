@@ -36,5 +36,19 @@ module Voter
     def self.find_topic_by_key(key)
       Topic.where(key: key)
     end
+
+    def self.create_topic(name, options, salt)
+      key = Digest::SHA1.hexdigest(name + Time.now.to_s + salt)
+      topic = Topic.new(name: name, key: key)
+
+      options.values.each do |option_value|
+        option = Option.new(name: option_value)
+        topic.options << option
+      end
+
+      topic.save!
+
+      key # return key for distribution
+    end
   end
 end

@@ -24,33 +24,26 @@ module Voter
       "#{Topic.count.to_s} topics have been created."
     end
 
-    get '/topic' do
-      if @params.has_key? 'key'
-        # find the topic by key, error if not existing
-        topic = Officer::find_topic_by_key @params[:key]
-        if topic.exists?
-          @topic = topic.first
-          @options = @topic.options
-          erb :vote_on_topic
-        else
-          erb :topic_not_found
-        end
+    post '/topic/find' do
+      # find the topic by key
+      topic = Officer::find_topic_by_key @params[:key]
+      if topic.exists?
+        @topic = topic.first
+        @options = @topic.options
+        erb :vote_on_topic
       else
-        erb :add_topic
+        erb :topic_not_found
       end
     end
 
+    get '/topic' do
+      erb :add_topic
+    end
+
     post '/topic' do
-      @key = Digest::SHA1.hexdigest(@params[:name] + Time.now.to_s + settings.salt)
-      topic = Topic.new(name: @params[:name], key: @key)
       option_params = @params.select {|k, v| k.start_with? 'option'}
+      @key = Officer::create_topic(@params[:name], option_params, settings.salt)
 
-      option_params.values.each do |option_value|
-        option = Option.new(name: option_value)
-        topic.options << option
-      end
-
-      topic.save!
       erb :topic_created
     end
   end
