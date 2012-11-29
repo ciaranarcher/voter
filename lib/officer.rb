@@ -1,3 +1,5 @@
+require 'topic'
+
 module Voter
   class Officer
     def self.voting_allowed?(topic, key)
@@ -29,6 +31,10 @@ module Voter
       topic.options.sort do |a, b| 
         b.votes.length <=> a.votes.length 
       end
+    end
+
+    def self.find_topic_by_key(key)
+      Topic.where(key: key)
     end
   end
 end

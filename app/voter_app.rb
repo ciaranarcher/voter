@@ -1,12 +1,13 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'digest/sha1'
-require 'topic'
-require 'option'
+require 'officer'
 
 module Voter
   class App < Sinatra::Base
-    register Sinatra::Reloader
+    configure :development do
+      register Sinatra::Reloader
+    end
 
     configure do
       # load mongoid config
@@ -19,8 +20,28 @@ module Voter
     end
 
     # topic
+    get '/topic/all' do
+      "#{Topic.count.to_s} topics have been created."
+    end
+
     get '/topic' do
-      erb :add_topic
+      if @params.has_key? 'key'
+        # find the topic by key, error if not existing
+        topic = Officer::find_topic_by_key @params[:key]
+        if topic.exists?
+          @topic = topic.first
+          @options = @topic.options
+          erb :vote_on_topic
+        else
+          erb :topic_not_found
+        end
+
+        topic.options.each do |o|
+          p o.to_s
+        end
+      else
+        erb :add_topic
+      end
     end
 
     post '/topic' do
