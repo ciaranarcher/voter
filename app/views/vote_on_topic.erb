@@ -2,6 +2,6 @@
 
 <ul>
   <% @options.each do |option| %>
-    <li><%= option.name %></li>
+    <li data-value="<%= option._id %>"><%= option.name %></li>
   <% end %>
 </ul>
