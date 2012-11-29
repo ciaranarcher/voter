@@ -35,10 +35,6 @@ module Voter
         else
           erb :topic_not_found
         end
-
-        topic.options.each do |o|
-          p o.to_s
-        end
       else
         erb :add_topic
       end

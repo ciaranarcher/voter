@@ -1,0 +1,7 @@
+<h3>Vote on Topic '<%=@topic.name %>'</h3>
+
+<ul>
+  <% @options.each do |option| %>
+    <li><%= option.name %></li>
+  <% end %>
+</ul>
