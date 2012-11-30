@@ -79,16 +79,5 @@ module Voter
         ranked_vote_options.last.name.should == 'red'
       end
     end
-
-    describe 'administration of voting' do
-      it 'can create a topic to vote on' do
-        
-      end
-      it 'can find a topic based on a key' do
-        # this is a pretty useless test; we're stubbing out a simple wrapper to query the database
-        Officer.stub(:find_topic_by_key).and_return Mongoid::Criteria.new Topic
-        Officer::find_topic_by_key('abc').should be_instance_of Mongoid::Criteria
-      end
-    end
   end
 end
