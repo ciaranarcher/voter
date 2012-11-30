@@ -57,7 +57,7 @@ module Voter
 
       p @params
 
-      topic = Officer::find_topic_by_key @params[:topic_key]
+      topic = Officer::find_topic_by_key @params[:topic_key].first
 
       p topic
 

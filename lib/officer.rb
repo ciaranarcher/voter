@@ -35,7 +35,7 @@ module Voter
     end
 
     def self.find_topic_by_key(key)
-      Topic.where(key: key)
+      Topic.where(key: key).first
     end
 
     def self.create_topic(name, vote_options, salt)
