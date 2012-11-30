@@ -29,9 +29,8 @@ module Voter
       @participant_email = @params[:participant_email]
 
       # find the topic by key
-      topic = Officer::find_topic_by_key @params[:key]
-      if topic.exists?
-        @topic = topic.first
+      @topic = Officer::find_topic_by_key @params[:key]
+      unless @topic.nil?
         @vote_options = @topic.vote_options
         erb :vote_on_topic
       else
@@ -57,19 +56,20 @@ module Voter
 
       p @params
 
-      topic = Officer::find_topic_by_key @params[:topic_key].first
+      topic = Officer::find_topic_by_key @params[:topic_key]
 
       p topic
 
-      begin
+      #begin
         if Officer::vote!(topic, participant, @params[:option])
           p 'vote registered'
         else
           p 'error voting'
         end
-      rescue => ex
-        p "exception making vote #{ex}"
-      end
+      #rescue => ex
+      #  p ex.to_s
+      #  p "exception making vote #{ex}"
+      #end
     end
   end
 end
