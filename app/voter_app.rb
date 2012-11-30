@@ -55,8 +55,18 @@ module Voter
         @params[:participant_email], @params[:participant_name]
       )
 
+      p @params
+
+      topic = Officer::find_topic_by_key @params[:topic_key]
+
+      p topic
+
       begin
-        Officer::vote!(@topic, participant, @params[:option]).should be_true
+        if Officer::vote!(topic, participant, @params[:option])
+          p 'vote registered'
+        else
+          p 'error voting'
+        end
       rescue => ex
         p "exception making vote #{ex}"
       end
