@@ -1,6 +1,12 @@
-<h3>Vote on Topic '<%=@topic.name %>'</h3>
+<h3 id="topic">Vote on Topic '<%=@topic.name %>'</h3>
 
-<ul>
+<p>
+  Hi, <span id="participant_name"><%= @participant_name %></span> 
+  (<span id="participant_email"><%= @participant_email %></span>). 
+  Please vote on an option below...
+</p>
+
+<ul id="options">
   <% @options.each do |option| %>
     <li data-value="<%= option._id %>"><%= option.name %></li>
   <% end %>

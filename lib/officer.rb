@@ -50,5 +50,20 @@ module Voter
 
       key # return key for distribution
     end
+
+    def self.find_or_create_participant(email, name)
+      our_man = Participant.where(email: @params[:participant_email])
+      
+      if our_man.exists?
+        participant = our_man.first
+        p 'found existing participant: ' + email
+      else
+        participant = Participant.new(name: @params[:participant_name], email: @params[:participant_email])
+        participant.save!
+        p 'created a new participant: ' + email
+      end
+
+      participant
+    end
   end
 end

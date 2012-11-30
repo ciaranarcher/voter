@@ -25,6 +25,9 @@ module Voter
     end
 
     post '/topic/find' do
+      @participant_name = @params[:participant_name]
+      @participant_email = @params[:participant_email]
+
       # find the topic by key
       topic = Officer::find_topic_by_key @params[:key]
       if topic.exists?
@@ -45,6 +48,18 @@ module Voter
       @key = Officer::create_topic(@params[:name], option_params, settings.salt)
 
       erb :topic_created
+    end
+
+    post '/vote' do
+      participant = Officer::find_or_create_participant(
+        @params[:participant_email], @params[:participant_name]
+      )
+
+      begin
+        Officer::vote!(@topic, participant, @params[:option]).should be_true
+      rescue => ex
+        p "exception making vote #{ex}"
+      end
     end
   end
 end
