@@ -22,7 +22,7 @@ module Voter
 
       # looks good, so add the vote to the option
       vote = Vote.new(participant_email: participant.email)
-      option.votes << vote 
+      option.votes << vote
       option.save! 
 
       true
@@ -57,11 +57,9 @@ module Voter
       
       if our_man.exists?
         participant = our_man.first
-        p 'found existing participant: ' + email
       else
         participant = Participant.new(name: name, email: email)
         participant.save!
-        p 'created a new participant: ' + email
       end
 
       participant

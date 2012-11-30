@@ -6,5 +6,7 @@ module Voter
 
     field :participant_email, type: String
     field :created_at, type: Time, default: ->{ Time.now }
+
+    embedded_in :vote_option
   end
 end

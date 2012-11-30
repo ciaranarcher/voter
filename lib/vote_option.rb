@@ -9,5 +9,6 @@ module Voter
     field :created_at, type: Time, default: ->{ Time.now }
 
     embeds_many :votes
+    embedded_in :topic
   end
 end
