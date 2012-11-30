@@ -32,7 +32,7 @@ module Voter
       topic = Officer::find_topic_by_key @params[:key]
       if topic.exists?
         @topic = topic.first
-        @options = @topic.options
+        @vote_options = @topic.vote_options
         erb :vote_on_topic
       else
         erb :topic_not_found

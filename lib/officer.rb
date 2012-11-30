@@ -1,4 +1,5 @@
 require 'topic'
+require 'vote'
 
 module Voter
   class Officer
@@ -9,11 +10,11 @@ module Voter
 
     def self.vote!(topic, participant, option)
       # check for option existing
-      option = topic.options.select {|o| o.name == option}.first
+      option = topic.vote_options.select {|o| o.name == option}.first
       raise 'voting option not found' if option.nil?
 
       # check for the participant having voted on any option in this topic
-      topic.options.each do |opt|
+      topic.vote_options.each do |opt|
         unless opt.votes.select {|v| v.participant_email == participant.email}.empty?
           raise 'participant has voted on topic before'
         end 
@@ -28,7 +29,7 @@ module Voter
     end
 
     def self.report_ranked_desc(topic)
-      topic.options.sort do |a, b| 
+      topic.vote_options.sort do |a, b| 
         b.votes.length <=> a.votes.length 
       end
     end
@@ -37,13 +38,13 @@ module Voter
       Topic.where(key: key)
     end
 
-    def self.create_topic(name, options, salt)
+    def self.create_topic(name, vote_options, salt)
       key = Digest::SHA1.hexdigest(name + Time.now.to_s + salt)
       topic = Topic.new(name: name, key: key)
 
-      options.values.each do |option_value|
-        option = Option.new(name: option_value)
-        topic.options << option
+      vote_options.values.each do |option_value|
+        option = VoteOption.new(name: option_value)
+        topic.vote_options << option
       end
 
       topic.save!

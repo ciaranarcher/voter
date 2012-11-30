@@ -6,8 +6,8 @@
   Please vote on an option below...
 </p>
 
-<ul id="options">
-  <% @options.each do |option| %>
+<ul id="vote_options">
+  <% @vote_options.each do |option| %>
     <li data-value="<%= option._id %>"><%= option.name %></li>
   <% end %>
 </ul>

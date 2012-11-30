@@ -1,9 +1,9 @@
-require 'option'
+require 'vote_option'
 
 module Voter
-  describe Option do
+  describe VoteOption do
     before(:each) do
-      @option = Option.new
+      @option = VoteOption.new
       stub_save! @option
     end
 
@@ -23,7 +23,7 @@ module Voter
         # create new option
         v = Vote.new
 
-        # add to topic options
+        # add to topic vote_options
         @option.votes << v
       end
 

@@ -14,18 +14,18 @@ module Voter
       @topic.name = 'test'
       @topic.key = @key
 
-      o1 = Option.new
+      o1 = VoteOption.new
       stub_save! o1
       o1.name = 'red'
       o1.save!
 
-      o2 = Option.new
+      o2 = VoteOption.new
       stub_save! o2
       o2.name = 'blue'
       o2.save!
 
-      # add to topic options
-      @topic.options << o1 << o2
+      # add to topic vote_options
+      @topic.vote_options << o1 << o2
       @topic.save!
 
       # create a participants
@@ -54,7 +54,7 @@ module Voter
 
       it 'allows a vote to be made on a option' do
         selected_option = 'red'
-        option = @topic.options.select {|o| o.name == selected_option}
+        option = @topic.vote_options.select {|o| o.name == selected_option}
         vote_count = option.first.votes.count
         Officer::vote!(@topic, @person_a, selected_option).should be_true
         vote_count.should == option.first.votes.count
@@ -68,15 +68,15 @@ module Voter
     end
 
     describe 'reporting on voting' do
-      it 'reports options for a topic in order of most votes descending' do
+      it 'reports vote_options for a topic in order of most votes descending' do
         Officer::vote!(@topic, @person_a, 'red')
         Officer::vote!(@topic, @person_b, 'blue')
         Officer::vote!(@topic, @person_c, 'blue')
 
-        ranked_options = Officer::report_ranked_desc(@topic)
-        ranked_options.should be_instance_of Array
-        ranked_options.first.name.should == 'blue'
-        ranked_options.last.name.should == 'red'
+        ranked_vote_options = Officer::report_ranked_desc(@topic)
+        ranked_vote_options.should be_instance_of Array
+        ranked_vote_options.first.name.should == 'blue'
+        ranked_vote_options.last.name.should == 'red'
       end
     end
 

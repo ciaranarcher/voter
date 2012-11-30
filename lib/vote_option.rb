@@ -1,5 +1,5 @@
 require 'mongoid'
-require 'vote'
+require 'vote_option'
 
 module Voter
   class VoteOption

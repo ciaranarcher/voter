@@ -172,9 +172,9 @@
  /* BUTTON PUBLIC CLASS DEFINITION
   * ============================== */
 
-  var Button = function (element, options) {
+  var Button = function (element, vote_options) {
     this.$element = $(element)
-    this.options = $.extend({}, $.fn.button.defaults, options)
+    this.vote_options = $.extend({}, $.fn.button.defaults, vote_options)
   }
 
   Button.prototype.setState = function (state) {
@@ -186,7 +186,7 @@
     state = state + 'Text'
     data.resetText || $el.data('resetText', $el[val]())
 
-    $el[val](data[state] || this.options[state])
+    $el[val](data[state] || this.vote_options[state])
 
     // push to event loop to allow forms to submit
     setTimeout(function () {
@@ -214,8 +214,8 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('button')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('button', (data = new Button(this, options)))
+        , vote_options = typeof option == 'object' && option
+      if (!data) $this.data('button', (data = new Button(this, vote_options)))
       if (option == 'toggle') data.toggle()
       else if (option) data.setState(option)
     })
@@ -265,11 +265,11 @@
  /* CAROUSEL CLASS DEFINITION
   * ========================= */
 
-  var Carousel = function (element, options) {
+  var Carousel = function (element, vote_options) {
     this.$element = $(element)
-    this.options = options
-    this.options.slide && this.slide(this.options.slide)
-    this.options.pause == 'hover' && this.$element
+    this.vote_options = vote_options
+    this.vote_options.slide && this.slide(this.vote_options.slide)
+    this.vote_options.pause == 'hover' && this.$element
       .on('mouseenter', $.proxy(this.pause, this))
       .on('mouseleave', $.proxy(this.cycle, this))
   }
@@ -278,9 +278,9 @@
 
     cycle: function (e) {
       if (!e) this.paused = false
-      this.options.interval
+      this.vote_options.interval
         && !this.paused
-        && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
+        && (this.interval = setInterval($.proxy(this.next, this), this.vote_options.interval))
       return this
     }
 
@@ -384,12 +384,12 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('carousel')
-        , options = $.extend({}, $.fn.carousel.defaults, typeof option == 'object' && option)
-        , action = typeof option == 'string' ? option : options.slide
-      if (!data) $this.data('carousel', (data = new Carousel(this, options)))
+        , vote_options = $.extend({}, $.fn.carousel.defaults, typeof option == 'object' && option)
+        , action = typeof option == 'string' ? option : vote_options.slide
+      if (!data) $this.data('carousel', (data = new Carousel(this, vote_options)))
       if (typeof option == 'number') data.to(option)
       else if (action) data[action]()
-      else if (options.interval) data.cycle()
+      else if (vote_options.interval) data.cycle()
     })
   }
 
@@ -407,8 +407,8 @@
   $(document).on('click.carousel.data-api', '[data-slide]', function (e) {
     var $this = $(this), href
       , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
-      , options = $.extend({}, $target.data(), $this.data())
-    $target.carousel(options)
+      , vote_options = $.extend({}, $target.data(), $this.data())
+    $target.carousel(vote_options)
     e.preventDefault()
   })
 
@@ -440,15 +440,15 @@
  /* COLLAPSE PUBLIC CLASS DEFINITION
   * ================================ */
 
-  var Collapse = function (element, options) {
+  var Collapse = function (element, vote_options) {
     this.$element = $(element)
-    this.options = $.extend({}, $.fn.collapse.defaults, options)
+    this.vote_options = $.extend({}, $.fn.collapse.defaults, vote_options)
 
-    if (this.options.parent) {
-      this.$parent = $(this.options.parent)
+    if (this.vote_options.parent) {
+      this.$parent = $(this.vote_options.parent)
     }
 
-    this.options.toggle && this.toggle()
+    this.vote_options.toggle && this.toggle()
   }
 
   Collapse.prototype = {
@@ -541,8 +541,8 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('collapse')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('collapse', (data = new Collapse(this, options)))
+        , vote_options = typeof option == 'object' && option
+      if (!data) $this.data('collapse', (data = new Collapse(this, vote_options)))
       if (typeof option == 'string') data[option]()
     })
   }
@@ -742,11 +742,11 @@
  /* MODAL CLASS DEFINITION
   * ====================== */
 
-  var Modal = function (element, options) {
-    this.options = options
+  var Modal = function (element, vote_options) {
+    this.vote_options = vote_options
     this.$element = $(element)
       .delegate('[data-dismiss="modal"]', 'click.dismiss.modal', $.proxy(this.hide, this))
-    this.options.remote && this.$element.find('.modal-body').load(this.options.remote)
+    this.vote_options.remote && this.$element.find('.modal-body').load(this.vote_options.remote)
   }
 
   Modal.prototype = {
@@ -833,7 +833,7 @@
 
     , escape: function () {
         var that = this
-        if (this.isShown && this.options.keyboard) {
+        if (this.isShown && this.vote_options.keyboard) {
           this.$element.on('keyup.dismiss.modal', function ( e ) {
             e.which == 27 && that.hide()
           })
@@ -872,14 +872,14 @@
         var that = this
           , animate = this.$element.hasClass('fade') ? 'fade' : ''
 
-        if (this.isShown && this.options.backdrop) {
+        if (this.isShown && this.vote_options.backdrop) {
           var doAnimate = $.support.transition && animate
 
           this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
             .appendTo(document.body)
 
           this.$backdrop.click(
-            this.options.backdrop == 'static' ?
+            this.vote_options.backdrop == 'static' ?
               $.proxy(this.$element[0].focus, this.$element[0])
             : $.proxy(this.hide, this)
           )
@@ -913,10 +913,10 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('modal')
-        , options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option == 'object' && option)
-      if (!data) $this.data('modal', (data = new Modal(this, options)))
+        , vote_options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option == 'object' && option)
+      if (!data) $this.data('modal', (data = new Modal(this, vote_options)))
       if (typeof option == 'string') data[option]()
-      else if (options.show) data.show()
+      else if (vote_options.show) data.show()
     })
   }
 
@@ -977,72 +977,72 @@
  /* TOOLTIP PUBLIC CLASS DEFINITION
   * =============================== */
 
-  var Tooltip = function (element, options) {
-    this.init('tooltip', element, options)
+  var Tooltip = function (element, vote_options) {
+    this.init('tooltip', element, vote_options)
   }
 
   Tooltip.prototype = {
 
     constructor: Tooltip
 
-  , init: function (type, element, options) {
+  , init: function (type, element, vote_options) {
       var eventIn
         , eventOut
 
       this.type = type
       this.$element = $(element)
-      this.options = this.getOptions(options)
+      this.vote_options = this.getvote_options(vote_options)
       this.enabled = true
 
-      if (this.options.trigger == 'click') {
-        this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
-      } else if (this.options.trigger != 'manual') {
-        eventIn = this.options.trigger == 'hover' ? 'mouseenter' : 'focus'
-        eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur'
-        this.$element.on(eventIn + '.' + this.type, this.options.selector, $.proxy(this.enter, this))
-        this.$element.on(eventOut + '.' + this.type, this.options.selector, $.proxy(this.leave, this))
+      if (this.vote_options.trigger == 'click') {
+        this.$element.on('click.' + this.type, this.vote_options.selector, $.proxy(this.toggle, this))
+      } else if (this.vote_options.trigger != 'manual') {
+        eventIn = this.vote_options.trigger == 'hover' ? 'mouseenter' : 'focus'
+        eventOut = this.vote_options.trigger == 'hover' ? 'mouseleave' : 'blur'
+        this.$element.on(eventIn + '.' + this.type, this.vote_options.selector, $.proxy(this.enter, this))
+        this.$element.on(eventOut + '.' + this.type, this.vote_options.selector, $.proxy(this.leave, this))
       }
 
-      this.options.selector ?
-        (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
+      this.vote_options.selector ?
+        (this._vote_options = $.extend({}, this.vote_options, { trigger: 'manual', selector: '' })) :
         this.fixTitle()
     }
 
-  , getOptions: function (options) {
-      options = $.extend({}, $.fn[this.type].defaults, options, this.$element.data())
+  , getvote_options: function (vote_options) {
+      vote_options = $.extend({}, $.fn[this.type].defaults, vote_options, this.$element.data())
 
-      if (options.delay && typeof options.delay == 'number') {
-        options.delay = {
-          show: options.delay
-        , hide: options.delay
+      if (vote_options.delay && typeof vote_options.delay == 'number') {
+        vote_options.delay = {
+          show: vote_options.delay
+        , hide: vote_options.delay
         }
       }
 
-      return options
+      return vote_options
     }
 
   , enter: function (e) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+      var self = $(e.currentTarget)[this.type](this._vote_options).data(this.type)
 
-      if (!self.options.delay || !self.options.delay.show) return self.show()
+      if (!self.vote_options.delay || !self.vote_options.delay.show) return self.show()
 
       clearTimeout(this.timeout)
       self.hoverState = 'in'
       this.timeout = setTimeout(function() {
         if (self.hoverState == 'in') self.show()
-      }, self.options.delay.show)
+      }, self.vote_options.delay.show)
     }
 
   , leave: function (e) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+      var self = $(e.currentTarget)[this.type](this._vote_options).data(this.type)
 
       if (this.timeout) clearTimeout(this.timeout)
-      if (!self.options.delay || !self.options.delay.hide) return self.hide()
+      if (!self.vote_options.delay || !self.vote_options.delay.hide) return self.hide()
 
       self.hoverState = 'out'
       this.timeout = setTimeout(function() {
         if (self.hoverState == 'out') self.hide()
-      }, self.options.delay.hide)
+      }, self.vote_options.delay.hide)
     }
 
   , show: function () {
@@ -1058,13 +1058,13 @@
         $tip = this.tip()
         this.setContent()
 
-        if (this.options.animation) {
+        if (this.vote_options.animation) {
           $tip.addClass('fade')
         }
 
-        placement = typeof this.options.placement == 'function' ?
-          this.options.placement.call(this, $tip[0], this.$element[0]) :
-          this.options.placement
+        placement = typeof this.vote_options.placement == 'function' ?
+          this.vote_options.placement.call(this, $tip[0], this.$element[0]) :
+          this.vote_options.placement
 
         inside = /in/.test(placement)
 
@@ -1104,7 +1104,7 @@
       var $tip = this.tip()
         , title = this.getTitle()
 
-      $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
+      $tip.find('.tooltip-inner')[this.vote_options.html ? 'html' : 'text'](title)
       $tip.removeClass('fade in top bottom left right')
     }
 
@@ -1153,7 +1153,7 @@
   , getTitle: function () {
       var title
         , $e = this.$element
-        , o = this.options
+        , o = this.vote_options
 
       title = $e.attr('data-original-title')
         || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
@@ -1162,14 +1162,14 @@
     }
 
   , tip: function () {
-      return this.$tip = this.$tip || $(this.options.template)
+      return this.$tip = this.$tip || $(this.vote_options.template)
     }
 
   , validate: function () {
       if (!this.$element[0].parentNode) {
         this.hide()
         this.$element = null
-        this.options = null
+        this.vote_options = null
       }
     }
 
@@ -1186,7 +1186,7 @@
     }
 
   , toggle: function (e) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+      var self = $(e.currentTarget)[this.type](this._vote_options).data(this.type)
       self[self.tip().hasClass('in') ? 'hide' : 'show']()
     }
 
@@ -1204,8 +1204,8 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('tooltip')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('tooltip', (data = new Tooltip(this, options)))
+        , vote_options = typeof option == 'object' && option
+      if (!data) $this.data('tooltip', (data = new Tooltip(this, vote_options)))
       if (typeof option == 'string') data[option]()
     })
   }
@@ -1251,8 +1251,8 @@
  /* POPOVER PUBLIC CLASS DEFINITION
   * =============================== */
 
-  var Popover = function (element, options) {
-    this.init('popover', element, options)
+  var Popover = function (element, vote_options) {
+    this.init('popover', element, vote_options)
   }
 
 
@@ -1268,8 +1268,8 @@
         , title = this.getTitle()
         , content = this.getContent()
 
-      $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-      $tip.find('.popover-content > *')[this.options.html ? 'html' : 'text'](content)
+      $tip.find('.popover-title')[this.vote_options.html ? 'html' : 'text'](title)
+      $tip.find('.popover-content > *')[this.vote_options.html ? 'html' : 'text'](content)
 
       $tip.removeClass('fade top bottom left right in')
     }
@@ -1281,7 +1281,7 @@
   , getContent: function () {
       var content
         , $e = this.$element
-        , o = this.options
+        , o = this.vote_options
 
       content = $e.attr('data-content')
         || (typeof o.content == 'function' ? o.content.call($e[0]) :  o.content)
@@ -1291,7 +1291,7 @@
 
   , tip: function () {
       if (!this.$tip) {
-        this.$tip = $(this.options.template)
+        this.$tip = $(this.vote_options.template)
       }
       return this.$tip
     }
@@ -1310,8 +1310,8 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('popover')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('popover', (data = new Popover(this, options)))
+        , vote_options = typeof option == 'object' && option
+      if (!data) $this.data('popover', (data = new Popover(this, vote_options)))
       if (typeof option == 'string') data[option]()
     })
   }
@@ -1353,13 +1353,13 @@
  /* SCROLLSPY CLASS DEFINITION
   * ========================== */
 
-  function ScrollSpy(element, options) {
+  function ScrollSpy(element, vote_options) {
     var process = $.proxy(this.process, this)
       , $element = $(element).is('body') ? $(window) : $(element)
       , href
-    this.options = $.extend({}, $.fn.scrollspy.defaults, options)
+    this.vote_options = $.extend({}, $.fn.scrollspy.defaults, vote_options)
     this.$scrollElement = $element.on('scroll.scroll-spy.data-api', process)
-    this.selector = (this.options.target
+    this.selector = (this.vote_options.target
       || ((href = $(element).attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
       || '') + ' .nav li > a'
     this.$body = $('body')
@@ -1396,7 +1396,7 @@
       }
 
     , process: function () {
-        var scrollTop = this.$scrollElement.scrollTop() + this.options.offset
+        var scrollTop = this.$scrollElement.scrollTop() + this.vote_options.offset
           , scrollHeight = this.$scrollElement[0].scrollHeight || this.$body[0].scrollHeight
           , maxScroll = scrollHeight - this.$scrollElement.height()
           , offsets = this.offsets
@@ -1452,8 +1452,8 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('scrollspy')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('scrollspy', (data = new ScrollSpy(this, options)))
+        , vote_options = typeof option == 'object' && option
+      if (!data) $this.data('scrollspy', (data = new ScrollSpy(this, vote_options)))
       if (typeof option == 'string') data[option]()
     })
   }
@@ -1635,15 +1635,15 @@
  /* TYPEAHEAD PUBLIC CLASS DEFINITION
   * ================================= */
 
-  var Typeahead = function (element, options) {
+  var Typeahead = function (element, vote_options) {
     this.$element = $(element)
-    this.options = $.extend({}, $.fn.typeahead.defaults, options)
-    this.matcher = this.options.matcher || this.matcher
-    this.sorter = this.options.sorter || this.sorter
-    this.highlighter = this.options.highlighter || this.highlighter
-    this.updater = this.options.updater || this.updater
-    this.$menu = $(this.options.menu).appendTo('body')
-    this.source = this.options.source
+    this.vote_options = $.extend({}, $.fn.typeahead.defaults, vote_options)
+    this.matcher = this.vote_options.matcher || this.matcher
+    this.sorter = this.vote_options.sorter || this.sorter
+    this.highlighter = this.vote_options.highlighter || this.highlighter
+    this.updater = this.vote_options.updater || this.updater
+    this.$menu = $(this.vote_options.menu).appendTo('body')
+    this.source = this.vote_options.source
     this.shown = false
     this.listen()
   }
@@ -1690,7 +1690,7 @@
 
       this.query = this.$element.val()
 
-      if (!this.query || this.query.length < this.options.minLength) {
+      if (!this.query || this.query.length < this.vote_options.minLength) {
         return this.shown ? this.hide() : this
       }
 
@@ -1712,7 +1712,7 @@
         return this.shown ? this.hide() : this
       }
 
-      return this.render(items.slice(0, this.options.items)).show()
+      return this.render(items.slice(0, this.vote_options.items)).show()
     }
 
   , matcher: function (item) {
@@ -1745,7 +1745,7 @@
       var that = this
 
       items = $(items).map(function (i, item) {
-        i = $(that.options.item).attr('data-value', item)
+        i = $(that.vote_options.item).attr('data-value', item)
         i.find('a').html(that.highlighter(item))
         return i[0]
       })
@@ -1889,8 +1889,8 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('typeahead')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('typeahead', (data = new Typeahead(this, options)))
+        , vote_options = typeof option == 'object' && option
+      if (!data) $this.data('typeahead', (data = new Typeahead(this, vote_options)))
       if (typeof option == 'string') data[option]()
     })
   }
@@ -1945,8 +1945,8 @@
  /* AFFIX CLASS DEFINITION
   * ====================== */
 
-  var Affix = function (element, options) {
-    this.options = $.extend({}, $.fn.affix.defaults, options)
+  var Affix = function (element, vote_options) {
+    this.vote_options = $.extend({}, $.fn.affix.defaults, vote_options)
     this.$window = $(window)
       .on('scroll.affix.data-api', $.proxy(this.checkPosition, this))
       .on('click.affix.data-api',  $.proxy(function () { setTimeout($.proxy(this.checkPosition, this), 1) }, this))
@@ -1960,7 +1960,7 @@
     var scrollHeight = $(document).height()
       , scrollTop = this.$window.scrollTop()
       , position = this.$element.offset()
-      , offset = this.options.offset
+      , offset = this.vote_options.offset
       , offsetBottom = offset.bottom
       , offsetTop = offset.top
       , reset = 'affix affix-top affix-bottom'
@@ -1991,8 +1991,8 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('affix')
-        , options = typeof option == 'object' && option
-      if (!data) $this.data('affix', (data = new Affix(this, options)))
+        , vote_options = typeof option == 'object' && option
+      if (!data) $this.data('affix', (data = new Affix(this, vote_options)))
       if (typeof option == 'string') data[option]()
     })
   }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'topic'
-require 'option'
+require 'vote_option'
 require 'participant'
 
 module Voter 
@@ -21,22 +21,22 @@ module Voter
       @topic.save!
     end
 
-    it 'has embedded options which can be saved too' do
+    it 'has embedded vote_options which can be saved too' do
       5.times do |i|
         # create new option
-        o = Option.new
+        o = VoteOption.new
         stub_save! o
         o.name = 'option name ' + i.to_s
 
-        # add to topic options
-        @topic.options << o
+        # add to topic vote_options
+        @topic.vote_options << o
       end
 
       @topic.save!
     end
 
-    it 'has options to vote on' do
-      @topic.options.should be_instance_of Array
+    it 'has vote_options to vote on' do
+      @topic.vote_options.should be_instance_of Array
     end
 
     it 'can have participants associated with it' do

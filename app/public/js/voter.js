@@ -14,7 +14,7 @@ Voter.DOMHelper = function() {};
 // attch buttons for clicking a vote
 Voter.DOMHelper.prototype.attachVoteButtons = function() {
   
-  $('#options li').click(function () {
+  $('#vote_options li').click(function () {
     var option = $(this).text();
     var participant_name = $('#participant_name').text();
     var participant_email = $('#participant_email').text();
