@@ -16,7 +16,7 @@ module Voter
       # check for the participant having voted on any option in this topic
       topic.vote_options.each do |opt|
         unless opt.votes.select {|v| v.participant_email == participant.email}.empty?
-          raise 'participant has voted on topic before'
+          raise 'voted before'
         end 
       end
 

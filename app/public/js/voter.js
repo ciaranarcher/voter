@@ -29,7 +29,19 @@ Voter.DOMHelper.prototype.handleVoteSubmissions = function() {
         participant_email: participant_email
       }, 
       function(resp) {
-        console.log(resp);
+          if (resp.success) {
+          $('#modal-label').text('Success!');
+          $('#modal-txt').text('Your vote has been recorded. Thanks!');
+        } else {
+          $('#modal-label').text('Oops!');
+          if (resp.reason == 'voted before') {
+            $('#modal-txt').text('You\'ve already voted on this topic.');
+          } else {
+            $('#modal-txt').text('Something strange just happened. Please try again.');
+          }
+        }
+
+        $('#vote-modal').modal({});
       });
   });
 };

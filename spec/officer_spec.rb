@@ -63,7 +63,7 @@ module Voter
       it 'only allows a participant to vote once on a topic' do
         selected_option = 'red'
         Officer::vote!(@topic, @person_a, selected_option).should be_true
-        lambda {Officer::vote!(@topic, @person_a, selected_option)}.should raise_error 'participant has voted on topic before'
+        lambda {Officer::vote!(@topic, @person_a, selected_option)}.should raise_error 'voted before'
       end
     end
 

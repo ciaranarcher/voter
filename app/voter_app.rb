@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'digest/sha1'
 require 'officer'
+require 'json'
 
 module Voter
   class App < Sinatra::Base
@@ -50,6 +51,8 @@ module Voter
     end
 
     post '/vote' do
+      content_type :json
+      
       participant = Officer::find_or_create_participant(
         @params[:participant_email], @params[:participant_name]
       )
@@ -58,13 +61,12 @@ module Voter
 
       begin
         if Officer::vote!(topic, participant, @params[:option])
-          p 'vote registered'
+          {:success => true}.to_json
         else
-          p 'error voting'
+          {:success => false, :reason => 'unknown'}.to_json
         end
       rescue => ex
-        p ex.to_s
-        p "exception making vote #{ex}"
+        {:success => false, :reason => ex.to_s}.to_json
       end
     end
   end
