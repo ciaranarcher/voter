@@ -6,11 +6,15 @@
   Please vote on an option below...
 </p>
 
-<ul id="vote_options">
+<ul id="vote_options" class="unstyled">
   <% @vote_options.each do |option| %>
     <li>
       <%= option.name %>
-      <input type="button" data-id="<%= option._id %>" data-value="<%= option.name %>" value="Vote" />
+      <input class="btn btn-primary" 
+        type="button" 
+        data-id="<%= option._id %>" 
+        data-value="<%= option.name %>" 
+        value="Vote" />
     </li>
   <% end %>
 </ul>
