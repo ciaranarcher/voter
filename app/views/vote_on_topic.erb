@@ -8,6 +8,9 @@
 
 <ul id="vote_options">
   <% @vote_options.each do |option| %>
-    <li data-value="<%= option._id %>"><%= option.name %></li>
+    <li>
+      <%= option.name %>
+      <input type="button" data-id="<%= option._id %>" data-value="<%= option.name %>" value="Vote" />
+    </li>
   <% end %>
 </ul>
