@@ -14,10 +14,10 @@ Voter.DOMHelper = function() {};
 // attch buttons for clicking a vote
 Voter.DOMHelper.prototype.handleVoteSubmissions = function() {
   
-  $('#vote_options input').click(function () {
+  $('#vote-options input').click(function () {
     var option = $(this).attr('data-value');
-    var participant_name = $('#participant_name').text();
-    var participant_email = $('#participant_email').text();
+    var participant_name = $('#participant-name').text();
+    var participant_email = $('#participant-email').text();
     var topic_key = $('#topic').attr('data-key');
     
     // call back to the mothership to say it was voted on

@@ -9,17 +9,37 @@
   <body>
     <header>
       <div class="row-fluid">
-        <div class="span4">
+        <div class="span2">
           <h1>Voter</h1>
         </div>
-        <div class="span8">
+        <div class="span10">
           Other stuff...
         </div>
       </div>
     </header>
 
-    <%= yield %>
-    
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <!--Sidebar content-->
+          <ul>
+            <li>Links</li>
+            <li>Go</li>
+            <li>Here</li>
+          </ul>
+        </div>
+        <div class="span10">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        <small>For your voting pleasure.</small>
+      </p>
+    </footer>
+
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/voter.js"></script>

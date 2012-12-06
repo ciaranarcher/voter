@@ -1,20 +1,24 @@
 <h3 id="topic" data-key="<%= @topic.key %>">Vote on Topic '<%=@topic.name %>'</h3>
 
 <p>
-  Hi, <span id="participant_name"><%= @participant_name %></span> 
-  (<span id="participant_email"><%= @participant_email %></span>). 
+  Hi, <span id="participant-name"><%= @participant_name %></span> 
+  (<span id="participant-email"><%= @participant_email %></span>). 
   Please vote on an option below...
 </p>
 
-<ul id="vote_options" class="unstyled">
+<table id="vote-options" class="table table-hover">
   <% @vote_options.each do |option| %>
-    <li>
-      <%= option.name %>
-      <input class="btn btn-primary" 
-        type="button" 
-        data-id="<%= option._id %>" 
-        data-value="<%= option.name %>" 
-        value="Vote" />
-    </li>
+    <tbody>
+      <tr>
+        <td class="opt-row"><%= option.name %></td>
+        <td class="btn-col">
+          <input class="btn btn-primary" 
+            type="button" 
+            data-id="<%= option._id %>" 
+            data-value="<%= option.name %>" 
+            value="Vote" />
+        </td>
+      </tr>
+    </tbody>
   <% end %>
-</ul>
+</table>

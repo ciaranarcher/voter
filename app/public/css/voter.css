@@ -1,3 +1,18 @@
 body {
   padding: 10px;
 }
+#vote-options {
+  width: 600px;
+}
+#vote-options td {
+  padding: 5px;
+  font-weight: bold;
+}
+
+#vote-options .opt-col {
+  
+}
+
+#vote-options .btn-col {
+  text-align: right;
+}
