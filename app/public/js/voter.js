@@ -19,6 +19,12 @@ Voter.DOMHelper.prototype.handleVoteSubmissions = function() {
     var participant_name = $('#participant-name').text();
     var participant_email = $('#participant-email').text();
     var topic_key = $('#topic').attr('data-key');
+
+    $('#vote-modal').on('hidden', function () {
+      if ($('#modal-txt').hasClass('success')) {
+        window.location.replace('/voted/' + topic_key);
+      }
+    })
     
     // call back to the mothership to say it was voted on
     $.post('/vote', 

@@ -69,5 +69,9 @@ module Voter
         {:success => false, :reason => ex.to_s}.to_json
       end
     end
+
+    get '/voted/:topic_key' do
+      'voted on ' + @params[:topic_key]
+    end
   end
 end
