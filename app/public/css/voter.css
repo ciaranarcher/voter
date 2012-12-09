@@ -11,3 +11,16 @@ body {
 #vote-options .btn-col {
   text-align: right;
 }
+
+#modal-txt {
+  height: 70px;
+  padding: 10px 0px 0px 60px;
+}
+
+#modal-txt.err {
+  background: #fff url('/img/error.png') no-repeat left top;
+}
+
+#modal-txt.success {
+  background: #fff url('/img/heart-full.png') no-repeat left top;
+}

@@ -29,11 +29,12 @@ Voter.DOMHelper.prototype.handleVoteSubmissions = function() {
         participant_email: participant_email
       }, 
       function(resp) {
-          if (resp.success) {
+        if (resp.success) {
           $('#modal-label').text('Success!');
-          $('#modal-txt').text('Your vote has been recorded. Thanks!');
+          $('#modal-txt').removeClass('err').addClass('success').text('Your vote has been recorded. Thanks!');;
         } else {
           $('#modal-label').text('Oops!');
+          $('#modal-txt').removeClass('success').addClass('err');
           if (resp.reason == 'voted before') {
             $('#modal-txt').text('You\'ve already voted on this topic.');
           } else {
