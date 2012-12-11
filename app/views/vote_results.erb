@@ -1,0 +1,24 @@
+<h3>Vote Results</h3>
+<p class="lead"><%= @topic.name %></p>
+
+<table id="vote-results" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Option</th>
+      <th># Votes</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% count = 0 
+    @ranked_options.each do |option| 
+      count += 1
+  %>
+    <tr>
+      <td><%= count %>.</td>
+      <td class="opt-row"><%= option.name %></td>
+      <td><%= option.votes.length %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
