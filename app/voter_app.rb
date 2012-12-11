@@ -41,6 +41,7 @@ module Voter
     end
 
     get '/topic' do
+      @linked_sel = 'create'
       erb :add_topic
     end
 
