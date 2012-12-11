@@ -24,3 +24,8 @@ body {
 #modal-txt.success {
   background: #fff url('/img/heart-full.png') no-repeat left top;
 }
+
+#title a {
+  text-decoration: none;
+  color: #333;
+}
