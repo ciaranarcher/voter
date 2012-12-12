@@ -9,14 +9,11 @@
   <body>
     <header>
       <div class="row-fluid">
-        <div class="span2" id="title">
-          <h1><a href="/">Voter</a></h1>
-        </div>
-        <div class="span10">
+        <div class="span12">
           <!-- Other stuff here -->
           <div class="navbar">
             <div class="navbar-inner">
-              <a class="brand" href="/">Vote</a>
+              <a class="brand" href="/">Voter</a>
               <ul class="nav">
                 <li class="<%= @linked_sel == 'create' ? 'active' : '' %>"><a href="/topic">Create Topic</a></li>
               </ul>
@@ -28,13 +25,7 @@
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span2">
-          <!--Sidebar content-->
-          <ul>
-            <li><a href="/topic">New Topic</a></li>
-          </ul>
-        </div>
-        <div class="span10">
+        <div class="span12">
           <%= yield %>
         </div>
       </div>
