@@ -13,7 +13,20 @@ $(document).ready(function() {
 Voter.DOMHelper = function() {};
 
 Voter.DOMHelper.prototype.handleAdditionalOptions = function() {
-  console.log('handleAdditionalOptions');
+
+  $('#addAdditionalTopic').click(function() {
+    var options = $('#topicFrm div.opt');
+    var nextNum = options.length + 1;
+
+    options.last().after('<div class="opt" style="display:none;"><label for="option' 
+      + nextNum + '">Option ' 
+      + nextNum + '</label><input type="text" id="option' 
+      + nextNum + '" name="option' 
+      + nextNum + '" /></div>');
+
+    $('#option' + nextNum).parent().show('fast');
+  });
+
 };
 
 // attach buttons for clicking a vote
