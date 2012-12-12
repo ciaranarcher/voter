@@ -6,22 +6,24 @@
   Please vote on an option below...
 </p>
 
-<table id="vote-options" class="table table-hover">
-  <% @vote_options.each do |option| %>
-    <tbody>
-      <tr>
-        <td class="opt-row"><%= option.name %></td>
-        <td class="btn-col">
-          <input class="btn btn-primary" 
-            type="button" 
-            data-id="<%= option._id %>" 
-            data-value="<%= option.name %>" 
-            value="Vote" />
-        </td>
-      </tr>
-    </tbody>
-  <% end %>
-</table>
+<div class="well">
+  <table id="vote-options" class="table table-hover">
+    <% @vote_options.each do |option| %>
+      <tbody>
+        <tr>
+          <td class="opt-row"><%= option.name %></td>
+          <td class="btn-col">
+            <input class="btn btn-primary" 
+              type="button" 
+              data-id="<%= option._id %>" 
+              data-value="<%= option.name %>" 
+              value="Vote" />
+          </td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>
 
 <div id="vote-modal" 
   class="modal hide fade" 

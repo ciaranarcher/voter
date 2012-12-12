@@ -6,12 +6,17 @@ $(document).ready(function() {
   // create document
   Voter.myDOMHelper = new Voter.DOMHelper();
   Voter.myDOMHelper.handleVoteSubmissions();
+  Voter.myDOMHelper.handleAdditionalOptions();
 });
 
 // create object
 Voter.DOMHelper = function() {};
 
-// attch buttons for clicking a vote
+Voter.DOMHelper.prototype.handleAdditionalOptions = function() {
+  console.log('handleAdditionalOptions');
+};
+
+// attach buttons for clicking a vote
 Voter.DOMHelper.prototype.handleVoteSubmissions = function() {
   
   $('#vote-options input').click(function () {
